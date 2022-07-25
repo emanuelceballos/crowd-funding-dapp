@@ -4,8 +4,6 @@ A decentralized Crowd Funding dApp that allows users to donate to causes propose
 
 ![cover.png](/git/repo_images/cover.png)
 
-; 
-
 This project was bootstrapped with:
 * `create-react-app`
 * `truffle init`
