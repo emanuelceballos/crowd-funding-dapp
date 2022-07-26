@@ -13,7 +13,7 @@ const FundingStatus = ({manager, fundingTarget, deadline, minimumContribution, a
     }
 
     return(
-        <div>
+        <div className="text-center">
             <div className="text-center">
                 <form className="form-inline mt-4">
                     <div className="form-group mx-sm-3 mb-2">
@@ -32,7 +32,7 @@ const FundingStatus = ({manager, fundingTarget, deadline, minimumContribution, a
                 Funding Status
             </div>
 
-            <div className="card-deck">
+            <div className="card-deck col d-flex justify-content-center">
                 <div className="card bg-info mb-3" style={{ maxWidth: "18rem" }}>
                     <div className="card-header">Funding Target</div>
                     <div className="card-body">

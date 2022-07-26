@@ -79,12 +79,23 @@ const App = () => {
             setDeadline(epoch.toLocaleDateString('en-US', dateOptions));
 
             const totalRequests = await cfContract.functions.numberOfRequests();
-            const jsTotalRequests = parseInt(fromWei(totalRequests.toString()));
+            const jsTotalRequests = toWei(totalRequests.toString(), 'wei');
+            let requests = [];
 
             for (let i = 0; i < jsTotalRequests; i++) {
-                const fundingRequest = cfContract.functions.requests(i);
-                setFundingRequests([...fundingRequests, fundingRequest]);
+                const rawRequest = await cfContract.functions.requests(i);
+                const fundingRequest = {
+                    id: i,
+                    description: rawRequest.description,
+                    amount: toWei(rawRequest.value.toString(), 'wei'),
+                    isCompleted: rawRequest.isCompleted.toString(),
+                    noOfVoters: toWei(rawRequest.noOfVoters.toString(), 'wei')
+                };
+
+                requests = [...requests, fundingRequest];
             }
+
+            setFundingRequests(requests);
 
             const eventFilter = cfContract.filters.EthReceived();
             const events = await cfContract.queryFilter(eventFilter);
@@ -103,10 +114,10 @@ const App = () => {
         }
 
         connectToWeb3();
-    }, [fundingRequests]);
+    }, []);
 
     return (
-        <div className='container'>
+        <div className='container-fluid'>
             <FundingStatus
                 manager={manager}
                 fundingTarget={fundingTarget}
@@ -117,7 +128,7 @@ const App = () => {
             
             <div className="row">
                 <div className="col-6">
-                    <FundingRequests requestsList={[]} />
+                    <FundingRequests requestsList={fundingRequests} />
                 </div>
                 <div className="col">
                     <Donators donators={donators} />

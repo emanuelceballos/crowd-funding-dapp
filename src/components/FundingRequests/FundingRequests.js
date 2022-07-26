@@ -12,6 +12,7 @@ const FundingRequests = ({requestsList}) => {
                     <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Amount requested</th>
                     <th scope="col">Completed</th>
                     <th scope="col"># of voters</th>
                     </tr>
@@ -19,10 +20,11 @@ const FundingRequests = ({requestsList}) => {
                 <tbody>
                     
                     {
-                        requestsList.map(request => {
-                            return <tr>
+                        requestsList.map((request, key) => {
+                            return <tr key={key}>
                                 <th scope="row">{request.id}</th>
                                 <td>{request.description}</td>
+                                <td>{request.amount}</td>
                                 <td>{request.isCompleted}</td>
                                 <td>{request.noOfVoters}</td>
                             </tr>
